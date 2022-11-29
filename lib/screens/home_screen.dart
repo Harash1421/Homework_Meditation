@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meditation/screens/details_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -64,13 +65,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          _waysCard("The Peace", 10, "assets/peace.png"),
+                          _waysCard(
+                              "The Peace", 10, "assets/peace.png", 1350, 120),
                           _sizedBox(height: 0, width: 18),
-                          _waysCard("Stress Relief", 15, "assets/stress.png"),
+                          _waysCard("Stress Relief", 15, "assets/stress.png",
+                              3240, 125),
                           _sizedBox(height: 0, width: 18),
-                          _waysCard("The Peace", 10, "assets/peace.png"),
+                          _waysCard(
+                              "The Peace", 10, "assets/peace.png", 2550, 120),
                           _sizedBox(height: 0, width: 18),
-                          _waysCard("Stress Relief", 15, "assets/stress.png")
+                          _waysCard("Stress Relief", 15, "assets/stress.png",
+                              2000, 200)
                         ],
                       ),
                     ),
@@ -149,7 +154,8 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   //Method Of Way Card
-  Widget _waysCard(String wName, int min, String image) {
+  Widget _waysCard(
+      String wName, int min, String image, int followers, int following) {
     return Material(
       elevation: 2.4,
       color: Colors.white,
@@ -189,18 +195,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10, bottom: 4),
-              child: InkWell(
-                onTap: () {
-                  debugPrint("Forward");
-                  setState(() {});
-                },
-                child: Row(
-                  children: [
-                    _myText("$min min", 10, Colors.black, TextAlign.left),
-                    Expanded(child: Container()),
-                    Image.asset("assets/next.png")
-                  ],
-                ),
+              child: Row(
+                children: [
+                  _myText("$min min", 10, Colors.black, TextAlign.left),
+                  Expanded(child: Container()),
+                  InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => DetailsScreen(
+                                  title: wName,
+                                  photo: image,
+                                  followers: followers,
+                                  following: following,
+                                )));
+                        setState(() {});
+                      },
+                      child: Image.asset("assets/next.png"))
+                ],
               ),
             )
           ],
