@@ -1,7 +1,7 @@
 import 'package:convex_bottom_bar/convex_bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:meditation/screens/home_screen.dart';
-import 'package:meditation/screens/profile_screen.dart';
+import 'package:meditation/screens/CartScreen.dart';
 import 'package:meditation/screens/session_screen.dart';
 
 class ContainerScreen extends StatefulWidget {
@@ -22,7 +22,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
           ? const HomeScreen()
           : selectedTabBarIndex == 1
               ? const SessionScreen()
-              : const ProfileScreen(),
+              : const CartScreen(),
       bottomNavigationBar: ConvexAppBar(
         backgroundColor: Colors.white,
         color: const Color(0xff1A7F72),
@@ -33,7 +33,7 @@ class _ContainerScreenState extends State<ContainerScreen> {
         items: const [
           TabItem(title: 'Home', icon: Icons.house_sharp),
           TabItem(title: 'Session', icon: Icons.list_alt_sharp),
-          TabItem(title: 'Profile', icon: Icons.person_sharp),
+          TabItem(title: 'Cart', icon: Icons.shop_sharp),
         ],
         onTap: (int i) {
           selectedTabBarIndex = i;
