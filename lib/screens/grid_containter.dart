@@ -13,6 +13,15 @@ class GridContainer extends StatefulWidget {
 class _GridContainerState extends State<GridContainer> {
   @override
   Widget build(BuildContext context) {
+    var newList = [];
+    for (var product in myList) {
+      if (widget.selectedCategory == "All Product") {
+        newList.addAll(myList);
+        break;
+      } else if (product.Type == widget.selectedCategory) {
+        newList.add(product);
+      }
+    }
     return Scaffold(
       body: SafeArea(
           child: Padding(
@@ -23,11 +32,7 @@ class _GridContainerState extends State<GridContainer> {
               mainAxisSpacing: 12,
               crossAxisSpacing: 12,
               mainAxisExtent: 250),
-          itemCount: myList
-              .where(widget.selectedCategory != "All Product"
-                  ? (element) => widget.selectedCategory == element.Type
-                  : (element) => widget.selectedCategory == "All Product")
-              .length,
+          itemCount: newList.length,
           itemBuilder: ((context, index) {
             return Container(
               decoration: BoxDecoration(
@@ -39,30 +44,30 @@ class _GridContainerState extends State<GridContainer> {
                 padding: const EdgeInsets.all(8.0),
                 child: Column(children: [
                   //Product Names
-                  _text(myList[index].Name, 17, Colors.black),
+                  _text(newList[index].Name, 17, Colors.black),
                   //Products Image
                   _sizedBox(height: 4, width: 0),
                   Image.asset(
-                    myList[index].Image,
+                    newList[index].Image,
                     height: 100,
                     width: 100,
                   ),
 
                   //Products Price
                   _sizedBox(height: 7, width: 0),
-                  _text("Price: ${myList[index].Price}JD", 17, Colors.black),
+                  _text("Price: ${newList[index].Price}JD", 17, Colors.black),
 
                   //Button For Add To Cart
                   Expanded(child: Container()),
                   TextButton(
                       onPressed: () {
-                        myList[index].qty += 1;
+                        newList[index].qty += 1;
                         setState(() {});
                       },
                       child: _text(
-                          myList[index].qty == 0
+                          newList[index].qty == 0
                               ? "Add To Cart"
-                              : "${myList[index].qty} Added to cart",
+                              : "${newList[index].qty} Added to cart",
                           18,
                           Colors.black)),
                 ]),
